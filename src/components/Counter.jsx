@@ -7,16 +7,21 @@ const Counter = ({ finishGame }) => {
   
   // Tambahkan useEffect disini
   useEffect(() => {
-    console.log('rendered')
+    window.addEventListener('keydown', handleKeyPress)
     return () => {
-      console.log('cleaned up')
+        window.addEventListener('keydown', handleKeyPress)
     }
-  }, []) // useEffect dapat memilki parameter ke-2 dan dapat menentukan dependency di situ. 
-  /*Ketika kamu menentukan [count] sebagai sebuah dependency, useEffect akan dipanggil ketika awal render tapi proses re-render tidak akan terjadi jika nilai dari count tidak berubah.
-  Dan jika kamu menentukan array([]) kosong sebagai dependency, useEffect akan dipanggil satu kali ketika awal render dan pada fase unmounting seperti yang dijelaskan pada video dibawah. */
+  }, [count]) 
 
   const handleClick = () => {
     setCount(count + 1)
+  }
+
+  const handleKeyPress = (event) => {
+    const { key } = event
+    if (key === 'Enter') {
+      setCount(count + 1)
+    }
   }
 
   return (
